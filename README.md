@@ -39,7 +39,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:1134@db:5432/test
+      - DATABASE_URL=postgresql+asyncpg://postgres:password@db:5432/base
     depends_on:
       - db
 
