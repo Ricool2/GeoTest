@@ -1,0 +1,7 @@
+fastapi
+sqlalchemy
+geoalchemy2[shapely]
+pandas
+openpyxl
+asyncpg
+geojson

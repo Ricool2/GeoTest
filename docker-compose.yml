@@ -1,0 +1,29 @@
+version: '3.11-slim'
+
+services:
+  web:
+    build: .
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --reload'
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:1134@db:5432/test
+    depends_on:
+      - db
+  
+  db:
+    image: postgis/postgis:15-3.4
+    restart: on-failure
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=passwor
+      - POSTGRES_DB=base
+
+volumes:
+  postgres_data:
